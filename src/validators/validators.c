@@ -1,6 +1,8 @@
 // libs
 #include <stdio.h>
 #include <stdbool.h>
+//project
+#include "./validators.h"
 
 
 bool validate_negative_or_zero_nuumber(int number) {

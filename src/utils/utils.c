@@ -2,15 +2,17 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <time.h>
 // project
-#include "validators/validators.h"
+#include "./utils.h"
+#include "../validators/validators.h"
 
 
 void set_dataset_size(int* dataset_size) {
     char default_dataset_size;
     int new_dataset_size;
 
-    while (1) {
+    while (true) {
         printf("Do you want use default dataset size of 10000? (y/n): ");
         scanf(" %c", &default_dataset_size);
 
@@ -20,8 +22,7 @@ void set_dataset_size(int* dataset_size) {
         } else if (default_dataset_size != 'y' && default_dataset_size != 'Y') {
             printf("Enter the new dataset size: ");
             scanf("%d", &new_dataset_size);
-            bool is_valid = validate_negative_or_zero_nuumber(new_dataset_size);
-            if (is_valid) {
+            if (validate_negative_or_zero_nuumber(new_dataset_size)) {
                 *dataset_size = new_dataset_size;
                 break;
             }
@@ -43,4 +44,18 @@ void random_numbers_set(int** random_numbers, int dataset_size) {
     for (int i = 0; i < dataset_size; i++) {
         (*random_numbers)[i] = rand() % (dataset_size * 10);
     }
+}
+
+
+void start_execution_time(ExecutionTime* execution_time) {
+    clock_gettime(CLOCK_MONOTONIC, &execution_time->start);
+}
+
+
+void stop_execution_time(ExecutionTime* execution_time) {
+    clock_gettime(CLOCK_MONOTONIC, &execution_time->end);
+    execution_time->milliseconds = (
+        (execution_time->end.tv_sec - execution_time->start.tv_sec) * 1000.0
+        + (execution_time->end.tv_nsec - execution_time->start.tv_nsec) / 1e6
+    );
 }
