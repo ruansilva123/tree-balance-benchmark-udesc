@@ -13,7 +13,7 @@ typedef struct BTree {
   int order;
 } Btree;
 
-BTree* create_b_tree(int);
+BTree* create_b_tree(int a);
 
 Node * add_node(BTree*);
 
@@ -26,3 +26,4 @@ Node* split_node(BTree*, Node*);
 void add_key_recursive(BTree*, Node*, Node*, int);
 
 void add_key(BTree*, int);
+
