@@ -22,6 +22,7 @@ int main() {
     start_execution_time(&avl_tree_data.deletion);
     remove_random_numbers(avl_tree, random_numbers, dataset_size);
     stop_execution_time(&avl_tree_data.deletion);
+    log_results("AVL TREE", &avl_tree_data);
 
     // ==== B-TREE VARIANTS ====
     // B+

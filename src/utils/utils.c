@@ -59,3 +59,24 @@ void stop_execution_time(ExecutionTime* execution_time) {
         + (execution_time->end.tv_nsec - execution_time->start.tv_nsec) / 1e6
     );
 }
+
+
+void log_results(const char* tree_name, TreeExecutionData* execution_data) {
+    time_t now = time(NULL);
+    char timestamp[20];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d_%H-%M-%S", localtime(&now));
+
+    char file_path[256];
+    snprintf(file_path, sizeof(file_path), "src/logs/%s_%s.log", tree_name, timestamp);
+
+    FILE* file = fopen(file_path, "a");
+    if (file == NULL) {
+        printf("Error: Could not open file for writing.\n");
+        return;
+    }
+
+    fprintf(file, "Execution time for %s:\n", tree_name);
+    fprintf(file, "Population: %.3f ms\n", execution_data->population.milliseconds);
+    fprintf(file, "Deletion: %.3f ms\n", execution_data->deletion.milliseconds);
+    fclose(file);
+}
