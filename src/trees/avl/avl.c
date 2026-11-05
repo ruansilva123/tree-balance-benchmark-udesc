@@ -16,11 +16,6 @@ AVLTree* create_avl_tree() {
 }
 
 
-bool empty_tree(AVLTree *tree) {
-    return tree->root == NULL;
-}
-
-
 void add_node(AVLTree* tree, int value) {
     Node* node = tree->root;
 

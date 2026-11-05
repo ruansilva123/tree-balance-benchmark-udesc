@@ -17,8 +17,6 @@ typedef struct {
 
 AVLTree* create_avl_tree();
 
-bool empty_tree(AVLTree* tree);
-
 void add_node(AVLTree* tree, int value);
 
 void remove_node(AVLTree* tree, int value);
