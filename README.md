@@ -47,6 +47,7 @@ Answer `y` to use the default or `n` to enter a different size. The value must b
 .
 ├── makefile
 └── src
+    ├── logs                   # Executions log 
     ├── main.c                 # Main benchmark flow
     ├── trees
     │   ├── avl/               # AVL tree

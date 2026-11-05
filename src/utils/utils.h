@@ -1,5 +1,4 @@
 // libs
-#include <stdbool.h>
 #include <time.h>
 
 
@@ -22,3 +21,5 @@ void random_numbers_set(int** random_numbers, int dataset_size);
 void start_execution_time(ExecutionTime* execution_time);
 
 void stop_execution_time(ExecutionTime* execution_time);
+
+void log_results(const char* tree_name, TreeExecutionData* execution_data);
