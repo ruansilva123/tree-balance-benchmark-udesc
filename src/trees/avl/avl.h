@@ -15,26 +15,26 @@ typedef struct {
 } AVLTree;
 
 
-AVLTree* create_avl_tree();
+AVLTree* avl_create_tree();
 
-void add_node(AVLTree* tree, int value);
+void avl_add_node(AVLTree* tree, int value);
 
-void remove_node(AVLTree* tree, int value);
+void avl_remove_node(AVLTree* tree, int value);
 
-void balance(AVLTree* tree, Node* node);
+void avl_balance(AVLTree* tree, Node* node);
 
-int balance_factor(Node* node);
+int avl_balance_factor(Node* node);
 
-int get_height(Node* node);
+int avl_get_height(Node* node);
 
-Node* simple_left_rotation(Node* node, AVLTree* tree);
+Node* avl_simple_left_rotation(Node* node, AVLTree* tree);
 
-Node* simple_right_rotation(Node* node, AVLTree* tree);
+Node* avl_simple_right_rotation(Node* node, AVLTree* tree);
 
-Node* double_left_rotation(Node* node, AVLTree* tree);
+Node* avl_double_left_rotation(Node* node, AVLTree* tree);
 
-Node* double_right_rotation(Node* node, AVLTree* tree);
+Node* avl_double_right_rotation(Node* node, AVLTree* tree);
 
-void set_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size);
+void avl_set_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size);
 
-void remove_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size);
+void avl_remove_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size);

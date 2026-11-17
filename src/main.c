@@ -3,6 +3,7 @@
 // project
 #include "utils/utils.h"
 #include "trees/avl/avl.h"
+#include "trees/red_black/red_black.h"
 
 
 int dataset_size = 10000;
@@ -14,13 +15,13 @@ int main() {
     random_numbers_set(&random_numbers, dataset_size);
 
     // ==== AVL TREE ====
-    AVLTree* avl_tree = create_avl_tree();
+    AVLTree* avl_tree = avl_create_tree();
     TreeExecutionData avl_tree_data;
     start_execution_time(&avl_tree_data.population);
-    set_random_numbers(avl_tree, random_numbers, dataset_size);
+    avl_set_random_numbers(avl_tree, random_numbers, dataset_size);
     stop_execution_time(&avl_tree_data.population);
     start_execution_time(&avl_tree_data.deletion);
-    remove_random_numbers(avl_tree, random_numbers, dataset_size);
+    avl_remove_random_numbers(avl_tree, random_numbers, dataset_size);
     stop_execution_time(&avl_tree_data.deletion);
     log_results("AVL TREE", &avl_tree_data);
 
@@ -53,13 +54,15 @@ int main() {
     stop_execution_time(&prefixed_bplus_tree_data.deletion);
 
     // ==== RED-BLACK TREE ====
+    RedBlackTree* red_black_tree = red_black_create_tree();
     TreeExecutionData red_black_tree_data;
     start_execution_time(&red_black_tree_data.population);
-    // add population here
+    red_black_set_random_numbers(red_black_tree, random_numbers, dataset_size);
     stop_execution_time(&red_black_tree_data.population);
     start_execution_time(&red_black_tree_data.deletion);
-    // add deletion here
+    red_black_remove_random_numbers(red_black_tree, random_numbers, dataset_size);
     stop_execution_time(&red_black_tree_data.deletion);
+    log_results("RED BLACK TREE", &red_black_tree_data);
 
     return 0;
 }

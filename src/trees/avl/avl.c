@@ -6,7 +6,7 @@
 #include "./avl.h"
 
 
-AVLTree* create_avl_tree() {
+AVLTree* avl_create_tree() {
     AVLTree *tree = (AVLTree*)malloc(sizeof(AVLTree));
     if (tree == NULL) {
         return NULL;
@@ -16,7 +16,7 @@ AVLTree* create_avl_tree() {
 }
 
 
-void add_node(AVLTree* tree, int value) {
+void avl_add_node(AVLTree* tree, int value) {
     Node* node = tree->root;
 
     while (node != NULL) {
@@ -55,12 +55,12 @@ void add_node(AVLTree* tree, int value) {
             node->left = new_node;
         }
 
-        balance(tree, node);
+        avl_balance(tree, node);
     }
 }
 
 
-void remove_node(AVLTree* tree, int value) {
+void avl_remove_node(AVLTree* tree, int value) {
     Node* node = tree->root;
 
     while (node != NULL && node->value != value) {
@@ -102,29 +102,29 @@ void remove_node(AVLTree* tree, int value) {
     }
 
     free(node);
-    balance(tree, father);
+    avl_balance(tree, father);
 }
 
 
-void balance(AVLTree* tree, Node* node) {
+void avl_balance(AVLTree* tree, Node* node) {
     while (node != NULL) {
-        int left_height = get_height(node->left);
-        int right_height = get_height(node->right);
+        int left_height = avl_get_height(node->left);
+        int right_height = avl_get_height(node->right);
         node->height = 1 + (left_height > right_height ? left_height : right_height);
 
-        int factor = balance_factor(node);
+        int factor = avl_balance_factor(node);
 
         if (factor > 1) {
-            if (balance_factor(node->left) >= 0) {
-                node = simple_right_rotation(node, tree);
+            if (avl_balance_factor(node->left) >= 0) {
+                node = avl_simple_right_rotation(node, tree);
             } else {
-                node = double_right_rotation(node, tree);
+                node = avl_double_right_rotation(node, tree);
             }
         } else if (factor < -1) {
-            if (balance_factor(node->right) <= 0) {
-                node = simple_left_rotation(node, tree);
+            if (avl_balance_factor(node->right) <= 0) {
+                node = avl_simple_left_rotation(node, tree);
             } else {
-                node = double_left_rotation(node, tree);
+                node = avl_double_left_rotation(node, tree);
             }
         }
 
@@ -133,12 +133,12 @@ void balance(AVLTree* tree, Node* node) {
 }
 
 
-int get_height(Node* node) {
+int avl_get_height(Node* node) {
     return node == NULL ? 0 : node->height;
 }
 
 
-int balance_factor(Node* node) {
+int avl_balance_factor(Node* node) {
     int left = 0, right = 0;
     if (node->left != NULL) {
         left = node->left->height;
@@ -150,7 +150,7 @@ int balance_factor(Node* node) {
 }
 
 
-Node* simple_left_rotation(Node* node, AVLTree* tree) {
+Node* avl_simple_left_rotation(Node* node, AVLTree* tree) {
     Node* father = node->father;
     Node* right = node->right;
 
@@ -174,13 +174,13 @@ Node* simple_left_rotation(Node* node, AVLTree* tree) {
         }
     }
 
-    node->height = 1 + (get_height(node->left) > get_height(node->right) ? get_height(node->left) : get_height(node->right));
-    right->height = 1 + (get_height(right->left) > get_height(right->right) ? get_height(right->left) : get_height(right->right));
+    node->height = 1 + (avl_get_height(node->left) > avl_get_height(node->right) ? avl_get_height(node->left) : avl_get_height(node->right));
+    right->height = 1 + (avl_get_height(right->left) > avl_get_height(right->right) ? avl_get_height(right->left) : avl_get_height(right->right));
     return right;
 }
 
 
-Node* simple_right_rotation(Node* node, AVLTree* tree) {
+Node* avl_simple_right_rotation(Node* node, AVLTree* tree) {
     Node* father = node->father;
     Node* left = node->left;
 
@@ -204,33 +204,33 @@ Node* simple_right_rotation(Node* node, AVLTree* tree) {
         }
     }
 
-    node->height = 1 + (get_height(node->left) > get_height(node->right) ? get_height(node->left) : get_height(node->right));
-    left->height = 1 + (get_height(left->left) > get_height(left->right) ? get_height(left->left) : get_height(left->right));
+    node->height = 1 + (avl_get_height(node->left) > avl_get_height(node->right) ? avl_get_height(node->left) : avl_get_height(node->right));
+    left->height = 1 + (avl_get_height(left->left) > avl_get_height(left->right) ? avl_get_height(left->left) : avl_get_height(left->right));
     return left;
 }
 
 
-Node* double_left_rotation(Node* node, AVLTree* tree) {
-    node->right = simple_right_rotation(node->right, tree);
-    return simple_left_rotation(node, tree);
+Node* avl_double_left_rotation(Node* node, AVLTree* tree) {
+    node->right = avl_simple_right_rotation(node->right, tree);
+    return avl_simple_left_rotation(node, tree);
 }
 
 
-Node* double_right_rotation(Node* node, AVLTree* tree) {
-    node->left = simple_left_rotation(node->left, tree);
-    return simple_right_rotation(node, tree);
+Node* avl_double_right_rotation(Node* node, AVLTree* tree) {
+    node->left = avl_simple_left_rotation(node->left, tree);
+    return avl_simple_right_rotation(node, tree);
 }
 
 
-void set_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size) {
+void avl_set_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size) {
     for (int i = 0; i < dataset_size; i++) {
-        add_node(tree, random_numbers[i]);
+        avl_add_node(tree, random_numbers[i]);
     }
 }
 
 
-void remove_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size) {
+void avl_remove_random_numbers(AVLTree* tree, int* random_numbers, int dataset_size) {
     for (int i = 0; i < dataset_size; i++) {
-        remove_node(tree, random_numbers[i]);
+        avl_remove_node(tree, random_numbers[i]);
     }
 }
