@@ -1,6 +1,6 @@
 # Tree Balance Benchmark
 
-[English](README.md) | **Português**
+[Inglês](README.md) | **Português**
 
 Benchmark em C que compara o esforço computacional de árvores balanceadas na adição e na remoção de chaves, incluindo o trabalho de balanceamento, usando as mesmas chaves aleatórias para todas as estruturas.
 

@@ -1,6 +1,6 @@
 # Tree Balance Benchmark
 
-**English** | [Português](README.pt-BR.md)
+**English** | [Portuguese](README.pt-BR.md)
 
 A C benchmark that compares the computational effort of balanced trees on insertion and deletion, including the balancing work, using the same random keys for every structure.
 
