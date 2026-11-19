@@ -126,3 +126,10 @@ On the first run, the command creates a Python virtual environment (`.venv`) and
     │   └── btree/             # B-tree
     └── utils/                 # Random keys and effort counter
 ```
+
+## Participants
+
+- [Ruan Carlos da Silva](https://github.com/ruansilva123)
+- [Guilherme Becker](https://github.com/GuiBecko)
+- [Pedro Henrique Urio dos Santos](https://github.com/pedrourio)
+- [Vitor Rafael Marcelino](https://github.com/vitorrmarcelino)
