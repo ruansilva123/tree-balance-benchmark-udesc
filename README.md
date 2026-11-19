@@ -26,16 +26,6 @@ The effort is a counter (`effort`, in `src/utils/`) incremented by one at:
 
 Keys are generated with `rand() % (10 * n)`, where `n` is the dataset size. Repeated keys are ignored by every tree.
 
-## Charts
-
-To generate the charts from the most recent results file:
-
-```bash
-make plot
-```
-
-On the first run, the command creates a Python virtual environment (`.venv`) and installs `pandas` and `matplotlib` from `requirements.txt`. The script `scripts/plot_results.py` reads the latest `src/results/results_*.csv` and overwrites `public/addition_effort.png` and `public/removal_effort.png`, so the images below are always up to date.
-
 ## Results
 
 ![Addition effort](public/addition_effort.png)
@@ -67,6 +57,16 @@ The program runs without any input and prints its progress every 500 sizes. Each
 ```
 dataset_size,avl_add,red_black_add,btree_1_add,btree_5_add,btree_10_add,avl_remove,red_black_remove,btree_1_remove,btree_5_remove,btree_10_remove
 ```
+
+## Charts
+
+To generate the charts from the most recent results file:
+
+```bash
+make plot
+```
+
+On the first run, the command creates a Python virtual environment (`.venv`) and installs `pandas` and `matplotlib` from `requirements.txt`. The script `scripts/plot_results.py` reads the latest `src/results/results_*.csv` and overwrites `public/addition_effort.png` and `public/removal_effort.png`, so the images in the Results section are always up to date.
 
 ## Project structure
 

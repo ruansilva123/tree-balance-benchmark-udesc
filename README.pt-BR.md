@@ -26,16 +26,6 @@ O esforço é um contador (`effort`, em `src/utils/`) incrementado em um a cada:
 
 As chaves são geradas com `rand() % (10 * n)`, onde `n` é o tamanho do conjunto. Chaves repetidas são ignoradas por todas as árvores.
 
-## Gráficos
-
-Para gerar os gráficos a partir do arquivo de resultados mais recente:
-
-```bash
-make plot
-```
-
-Na primeira execução, o comando cria um ambiente virtual Python (`.venv`) e instala `pandas` e `matplotlib` a partir do `requirements.txt`. O script `scripts/plot_results.py` lê o `src/results/results_*.csv` mais recente e sobrescreve `public/addition_effort.png` e `public/removal_effort.png`, então as imagens abaixo estão sempre atualizadas.
-
 ## Resultados
 
 ![Esforço na adição](public/addition_effort.png)
@@ -67,6 +57,16 @@ O programa roda sem nenhuma entrada e mostra o progresso a cada 500 tamanhos. Ca
 ```
 dataset_size,avl_add,red_black_add,btree_1_add,btree_5_add,btree_10_add,avl_remove,red_black_remove,btree_1_remove,btree_5_remove,btree_10_remove
 ```
+
+## Gráficos
+
+Para gerar os gráficos a partir do arquivo de resultados mais recente:
+
+```bash
+make plot
+```
+
+Na primeira execução, o comando cria um ambiente virtual Python (`.venv`) e instala `pandas` e `matplotlib` a partir do `requirements.txt`. O script `scripts/plot_results.py` lê o `src/results/results_*.csv` mais recente e sobrescreve `public/addition_effort.png` e `public/removal_effort.png`, então as imagens da seção Resultados estão sempre atualizadas.
 
 ## Estrutura do projeto
 
