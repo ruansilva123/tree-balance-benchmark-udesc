@@ -79,6 +79,7 @@ void red_black_remove_node(RedBlackTree* tree, int value) {
     if (node == NULL) {
         return;
     }
+    effort++;
 
     if (node->left != NULL && node->right != NULL) {
         RedBlackNode* successor = node->right;

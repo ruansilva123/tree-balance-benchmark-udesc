@@ -32,6 +32,46 @@ As chaves são geradas com `rand() % (10 * n)`, onde `n` é o tamanho do conjunt
 
 ![Esforço na remoção](public/removal_effort.png)
 
+### Discussão
+
+A tabela mostra o esforço médio no maior tamanho de conjunto (10.000 chaves) e o esforço por chave (total dividido por 10.000):
+
+| Árvore | Adição | Por chave | Remoção | Por chave |
+|---|---|---|---|---|
+| Rubro-Negra | 135.012 | 13,5 | 124.727 | 12,5 |
+| Árvore B ordem 5 | 212.626 | 21,3 | 221.211 | 22,1 |
+| Árvore B ordem 10 | 236.045 | 23,6 | 256.772 | 25,7 |
+| AVL | 241.491 | 24,1 | 221.105 | 22,1 |
+| Árvore B ordem 1 | 250.678 | 25,1 | 252.201 | 25,2 |
+
+**Crescimento.** Todas as curvas crescem como `n log n`: o esforço dividido por `n log₂ n` fica quase constante entre 1.000 e 10.000 chaves (por exemplo, 1,76 e 1,82 na adição da AVL). Isso confirma o custo `O(log n)` esperado para uma adição ou remoção numa árvore balanceada, repetido `n` vezes. Nenhuma estrutura degrada conforme o conjunto cresce; elas diferem por um fator constante.
+
+**A Rubro-Negra é a mais barata nas duas operações**, com cerca de 55% do esforço da AVL. As duas árvores terminam com a mesma altura (cerca de 16 níveis para 10.000 chaves) e fazem uma quantidade parecida de rotações (AVL: 6.668 na adição; Rubro-Negra: 5.550). A diferença está no que acontece depois da alteração:
+
+- A AVL implementada sobe do nó alterado até a raiz em toda operação, recalculando alturas e fatores de balanceamento: cerca de 11 passos por adição e 10 por remoção.
+- A correção da Rubro-Negra só continua enquanto há conflito vermelho-vermelho ou falta de nó preto, o que normalmente termina em 1 passo: cerca de 0,9 passo por adição e 0,7 por remoção.
+
+**A AVL é mais cara na adição do que na remoção** (24,1 contra 22,1 por chave). Nos dois casos ela sobe até a raiz, mas a adição faz quase o dobro de rotações (6.668 contra 3.811).
+
+**Árvore B: a ordem troca altura por trabalho dentro do nó.**
+
+- A ordem 1 (1 a 2 chaves por nó, uma árvore 2-3) é a mais alta, com 11 níveis, e a que mais faz splits (7.054) e correções de underflow (10.121). Seu esforço vai em descer níveis.
+- A ordem 5 (5 a 10 chaves por nó) cai para 5 níveis e é a árvore B mais barata nas duas operações.
+- A ordem 10 (10 a 20 chaves por nó) só cai para 4 níveis, mas cada adição ou remoção desloca o dobro de chaves dentro do nó, e cada split, merge ou empréstimo move o dobro de chaves. Esse trabalho extra supera o nível economizado: a ordem 10 fica acima da ordem 5 e, na remoção, é a mais cara de todas as árvores.
+
+A busca binária dentro dos nós custa praticamente o mesmo em todas as ordens: menos níveis significam mais comparações por nó, e o total fica próximo de `log₂ n` por chave.
+
+**Remoção x adição na árvore B.** A remoção é um pouco mais cara em todas as ordens, porque um underflow exige pegar emprestado ou fundir com um irmão, e remover uma chave de um nó interno exige encontrar antes o seu predecessor.
+
+**AVL x árvore B ordem 5 na remoção.** As duas chegam praticamente ao mesmo esforço com 10.000 chaves (221.105 contra 221.211). As curvas se sobrepõem no gráfico de remoção, então nenhuma das duas é claramente melhor ali.
+
+### Observações sobre os resultados
+
+- **O esforço depende do critério de contagem.** Contar só comparações de chave, ou cada atribuição, mudaria as curvas. O critério usado está descrito em [Esforço computacional](#esforço-computacional).
+- **O resultado da árvore B vale para memória.** Cada nó já está em memória, então deslocar chaves dentro dele tem custo real nesta contagem. Em disco, o custo dominante é ler cada nó, e mover chaves dentro de um nó já lido é quase de graça. Por esse critério, uma ordem maior venceria, por ter menos níveis.
+- **Implementação da AVL.** Esta AVL sempre sobe até a raiz. Uma implementação que pare assim que a altura de um nó não mudar reduziria seu esforço, principalmente na adição.
+- **Chaves repetidas.** As chaves vêm de `rand() % (10 * n)`, então cerca de 5% delas se repetem. Todas as árvores ignoram chaves repetidas, então as cinco processam o mesmo conjunto.
+
 ## Requisitos
 
 - GCC

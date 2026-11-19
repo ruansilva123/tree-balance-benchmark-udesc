@@ -79,6 +79,7 @@ void avl_remove_node(AVLTree* tree, int value) {
     if (node == NULL) {
         return;
     }
+    effort++;
 
     if (node->left != NULL && node->right != NULL) {
         Node* successor = node->right;
