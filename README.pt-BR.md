@@ -26,10 +26,27 @@ O esforço é um contador (`effort`, em `src/utils/`) incrementado em um a cada:
 
 As chaves são geradas com `rand() % (10 * n)`, onde `n` é o tamanho do conjunto. Chaves repetidas são ignoradas por todas as árvores.
 
+## Gráficos
+
+Para gerar os gráficos a partir do arquivo de resultados mais recente:
+
+```bash
+make plot
+```
+
+Na primeira execução, o comando cria um ambiente virtual Python (`.venv`) e instala `pandas` e `matplotlib` a partir do `requirements.txt`. O script `scripts/plot_results.py` lê o `src/results/results_*.csv` mais recente e sobrescreve `public/addition_effort.png` e `public/removal_effort.png`, então as imagens abaixo estão sempre atualizadas.
+
+## Resultados
+
+![Esforço na adição](public/addition_effort.png)
+
+![Esforço na remoção](public/removal_effort.png)
+
 ## Requisitos
 
 - GCC
 - Make
+- Python 3 (apenas para os gráficos)
 
 ## Como compilar e executar
 
@@ -56,6 +73,10 @@ dataset_size,avl_add,red_black_add,btree_1_add,btree_5_add,btree_10_add,avl_remo
 ```
 .
 ├── makefile
+├── requirements.txt           # Dependências Python dos gráficos
+├── public/                    # Gráficos usados no README
+├── scripts/
+│   └── plot_results.py        # Gera os gráficos
 └── src
     ├── results/               # Resultados (CSV)
     ├── main.c                 # Fluxo principal do benchmark

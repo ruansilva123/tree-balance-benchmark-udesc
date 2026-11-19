@@ -3,3 +3,6 @@ main
 
 # Ignore results files
 src/results/*.csv
+
+# Ignore Python virtual environment
+.venv/
