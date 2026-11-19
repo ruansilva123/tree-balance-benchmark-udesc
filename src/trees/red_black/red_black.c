@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 // project
+#include "../../utils/utils.h"
 #include "./red_black.h"
 
 
@@ -20,6 +21,7 @@ void red_black_add_node(RedBlackTree* tree, int value) {
     RedBlackNode* node = tree->root;
 
     while (node != NULL) {
+        effort++;
         if (value > node->value) {
             if (node->right != NULL) {
                 node = node->right;
@@ -66,6 +68,7 @@ void red_black_remove_node(RedBlackTree* tree, int value) {
     RedBlackNode* node = tree->root;
 
     while (node != NULL && node->value != value) {
+        effort++;
         if (value > node->value) {
             node = node->right;
         } else {
@@ -80,6 +83,7 @@ void red_black_remove_node(RedBlackTree* tree, int value) {
     if (node->left != NULL && node->right != NULL) {
         RedBlackNode* successor = node->right;
         while (successor->left != NULL) {
+            effort++;
             successor = successor->left;
         }
         node->value = successor->value;
@@ -113,6 +117,7 @@ void red_black_remove_node(RedBlackTree* tree, int value) {
 
 void red_black_add_balance(RedBlackTree* tree, RedBlackNode* node) {
     while (node != tree->root && node->father->color == RED) {
+        effort++;
         RedBlackNode* father = node->father;
         RedBlackNode* grandfather = father->father;
 
@@ -158,6 +163,7 @@ void red_black_add_balance(RedBlackTree* tree, RedBlackNode* node) {
 
 void red_black_remove_balance(RedBlackTree* tree, RedBlackNode* node, RedBlackNode* father) {
     while (node != tree->root && red_black_is_black(node)) {
+        effort++;
         if (node == father->left) {
             RedBlackNode* sibling = father->right;
 
@@ -231,6 +237,7 @@ bool red_black_is_black(RedBlackNode* node) {
 
 
 void red_black_left_rotation(RedBlackTree* tree, RedBlackNode* node) {
+    effort++;
     RedBlackNode* father = node->father;
     RedBlackNode* right = node->right;
 
@@ -257,6 +264,7 @@ void red_black_left_rotation(RedBlackTree* tree, RedBlackNode* node) {
 
 
 void red_black_right_rotation(RedBlackTree* tree, RedBlackNode* node) {
+    effort++;
     RedBlackNode* father = node->father;
     RedBlackNode* left = node->left;
 

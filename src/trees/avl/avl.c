@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 // project
+#include "../../utils/utils.h"
 #include "./avl.h"
 
 
@@ -20,18 +21,21 @@ void avl_add_node(AVLTree* tree, int value) {
     Node* node = tree->root;
 
     while (node != NULL) {
+        effort++;
         if (value > node->value) {
             if (node->right != NULL) {
                 node = node->right;
             } else {
                 break;
             }
-        } else {
+        } else if (value < node->value) {
             if (node->left != NULL) {
                 node = node->left;
             } else {
                 break;
             }
+        } else {
+            return;
         }
     }
 
@@ -64,6 +68,7 @@ void avl_remove_node(AVLTree* tree, int value) {
     Node* node = tree->root;
 
     while (node != NULL && node->value != value) {
+        effort++;
         if (value > node->value) {
             node = node->right;
         } else {
@@ -78,6 +83,7 @@ void avl_remove_node(AVLTree* tree, int value) {
     if (node->left != NULL && node->right != NULL) {
         Node* successor = node->right;
         while (successor->left != NULL) {
+            effort++;
             successor = successor->left;
         }
         node->value = successor->value;
@@ -108,6 +114,7 @@ void avl_remove_node(AVLTree* tree, int value) {
 
 void avl_balance(AVLTree* tree, Node* node) {
     while (node != NULL) {
+        effort++;
         int left_height = avl_get_height(node->left);
         int right_height = avl_get_height(node->right);
         node->height = 1 + (left_height > right_height ? left_height : right_height);
@@ -151,6 +158,7 @@ int avl_balance_factor(Node* node) {
 
 
 Node* avl_simple_left_rotation(Node* node, AVLTree* tree) {
+    effort++;
     Node* father = node->father;
     Node* right = node->right;
 
@@ -181,6 +189,7 @@ Node* avl_simple_left_rotation(Node* node, AVLTree* tree) {
 
 
 Node* avl_simple_right_rotation(Node* node, AVLTree* tree) {
+    effort++;
     Node* father = node->father;
     Node* left = node->left;
 
